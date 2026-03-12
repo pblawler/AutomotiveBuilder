@@ -1,0 +1,93 @@
+﻿<Window x:Class="AutomotiveBuilder.Views.InjectorCalcView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutomotiveBuilder.Views"
+        mc:Ignorable="d"
+        Title="Injector Calculations" Height="600" Width="800"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="52*" />
+            <ColumnDefinition Width="48*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="55*"/>
+        </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" Margin="1">
+                <StackPanel>
+                    <Label Content="Injector Rated/Actual Pressure Flow Correction" HorizontalAlignment="Center"
+                   Margin="5" FontWeight="Bold" FontSize="14"/>
+                    <Label Content="Rated Fuel Flow" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="InjectorFlow" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                     Text="{Binding calcToolInjRF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                    <Label Content="Rated Fuel Base Pressure" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="InjectorBasePress" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                     Text="{Binding calcToolInjRP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                    <Label Content="Actual Fuel Base Pressure" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="InjectorActualPress" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                     Text="{Binding calcToolInjAP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                    <Label Content="Actual Fuel Flow" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock x:Name="InjectorActualFlow" Width="100" Margin="0,0,0,5" HorizontalAlignment="Center"
+                       Text="{Binding calcToolInjAF, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}" TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" Margin="1">
+            <StackPanel Orientation="Horizontal">
+                <Border  BorderBrush="Black" BorderThickness="1" Margin="1">
+                    <StackPanel>
+                        <Label Content="Injector Size Calculator" HorizontalAlignment="Center"
+                        Margin="10" FontWeight="Bold" FontSize="14"/>
+                        <Label Content="Crankshaft Horsepower" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="cccInjectorFlow" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                        Text="{Binding calcCHP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                        <Label Content="Number of Injectors" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="cccInjectorBasePress" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                        Text="{Binding calcNoInj, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                        <Label Content="BSCF" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="cccInjectorActualPress" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                        Text="{Binding calcBSFC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+                        <Label Content="Target Duty Cycle" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="ccccInjectorActualPress" Width="100" Margin="0,0,0,5" HorizontalContentAlignment="Center"
+                        Text="{Binding calcDutyCycle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000, StringFormat={}{0:P2}}"/>
+                        <Label Content="Injector Size (lb/hr)" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="cccInjectorActualFlow" Width="100" Margin="0,0,0,5" HorizontalAlignment="Center"
+                        Text="{Binding calcInjectorSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F0}}" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <Border  BorderBrush="Black" BorderThickness="1" Margin="1">
+                    <StackPanel>
+                        <Label Content="Brake-specific fuel Consumption" HorizontalAlignment="Center"
+                            Margin="0,10,0,0" FontWeight="Bold" FontSize="14"/>
+                        <Label Content="(BSFC)" HorizontalAlignment="Center"
+                            Margin="0" FontWeight="Bold" FontSize="14"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <Label Content="Pump Gas" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="12"/>
+                                <Label Content="NA = 0.55" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                                <Label Content="Turbo = 0.65" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                                <Label Content="SuperCharger = 0.70" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="E85" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="12"/>
+                                <Label Content="NA = 0.65" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                                <Label Content="Turbo = 0.80" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                                <Label Content="SuperCharger = 0.90" HorizontalAlignment="Center"
+                                    Margin="0" FontWeight="Bold" FontSize="10"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

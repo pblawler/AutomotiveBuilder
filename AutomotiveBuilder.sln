@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomotiveBuilder", "AutomotiveBuilder.csproj", "{89DA5676-58FC-479B-BB3E-6648D15A798F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMtools", "..\..\MVVM\MVVMtools\MVVMtools.csproj", "{6181E82C-0F59-C65C-29B8-3223842F2F85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6181E82C-0F59-C65C-29B8-3223842F2F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6181E82C-0F59-C65C-29B8-3223842F2F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6181E82C-0F59-C65C-29B8-3223842F2F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6181E82C-0F59-C65C-29B8-3223842F2F85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

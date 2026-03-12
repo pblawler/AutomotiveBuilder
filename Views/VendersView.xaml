@@ -1,0 +1,292 @@
+﻿<Window x:Class="AutomotiveBuilder.VendersView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:command="clr-namespace:MVVMtools.Command;assembly=MVVMtools"
+        xmlns:local="clr-namespace:AutomotiveBuilder" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:core="using:Microsoft.Xaml.Interactions.Core"      
+        xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Venders" Height="800" Width="1200"
+        DataContext="{Binding VenderViewModel, Source={StaticResource Locator}}">
+    <Grid Margin="2,2,2,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="25">
+            <MenuItem Header="File" Width="56">
+                <MenuItem Name="Add" Header="Add">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding AddVenderCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="Open" Header="Open">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenVendersCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="Save" Header="Save">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding SaveVendersCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="SaveAs" Header="SaveAs">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding SaveVendersAsCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Part" Width="56">
+                <MenuItem Header="Add">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding AddVenderPartCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">
+            <Label Content="Selected Vender Info" HorizontalAlignment="Left" Height="26" Margin="0,0,0,0"
+               VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+            <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" Height="auto" Width="auto">
+                <Grid Name="VenderInfo"
+                    Height="auto" Margin="0,0,0,0" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Name" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202"
+                                      Text="{Binding SelectedVender.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="URL" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"
+                                   MouseUp="LabelVU_MouseUp" Style="{StaticResource Hyperlink}"/>
+                            <TextBox x:Name="VenderUrl" HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" Width="600" MinWidth="200"                                     
+                                      Text="{Binding SelectedVender.URL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Contact Name" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202"
+                                      Text="{Binding SelectedVender.ContactName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Phone" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                      Text="{Binding SelectedVender.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Email" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                      Text="{Binding SelectedVender.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Address" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202"
+                                      Text="{Binding SelectedVender.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="City" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                      Text="{Binding SelectedVender.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="State" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                      Text="{Binding SelectedVender.State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Zip" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                      Text="{Binding SelectedVender.Zip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Venders" HorizontalAlignment="Left" Height="26" Margin="5,0,0,0"
+                       FontWeight="Bold"/>
+                <DataGrid  Grid.Row="1"
+                CanUserAddRows="False" AlternatingRowBackground="LightGray" AlternationCount="2"
+                ItemsSource="{Binding MyVenderList, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedVender}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                AutoGenerateColumns="False" Margin="5,0,5,5">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="IsHitTestVisible" Value="True"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="False"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">
+            <Label Content="Selected Part Info" HorizontalAlignment="Left" Height="26" Margin="0,0,0,0"
+               VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+            <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" Height="auto" Width="auto">
+                <Grid Name="PrtInfo"
+                    Height="auto" Margin="0,0,0,0" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Name" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202"
+                              Text="{Binding SelectedVender.SelectedPart.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="URL" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left" 
+                                   MouseUp="Label_MouseUp" Style="{StaticResource Hyperlink}"/>
+                            <TextBox x:Name="PartURL" HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" Width="599" MinWidth="200"
+                              Text="{Binding SelectedVender.SelectedPart.URL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Catagory" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"
+                                   />
+                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202"
+                                      ItemsSource="{Binding PartCatagories}" DisplayMemberPath="Name" SelectedValuePath="ID"
+                                      SelectedValue="{Binding SelectedVender.SelectedPart.CategoryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Sub-Catagory" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                                    ItemsSource="{Binding PartSubCatagories}" DisplayMemberPath="Name" SelectedValuePath="ID"
+                                    SelectedValue="{Binding SelectedVender.SelectedPart.SubCategoryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Part Number" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="200"
+                              Text="{Binding SelectedVender.SelectedPart.PartNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Description" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                        <TextBox Grid.Row="1" HorizontalAlignment="Stretch" Height="23" Margin="10,0,0,0" VerticalAlignment="Top"
+                            Text="{Binding SelectedVender.SelectedPart.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Cost" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Left"/>
+                                <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="auto" MinWidth="100"
+                                    Text="{Binding SelectedVender.SelectedPart.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}"
+                                     HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Quantity-On-Hand" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Left"/>
+                                <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"
+                                    Text="{Binding SelectedVender.SelectedPart.QuantityOnHand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Investment" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Left"/>
+                                <TextBox HorizontalAlignment="Center" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" IsReadOnly="True"
+                                       Text="{Binding SelectedVender.SelectedPart.Invested, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat=C}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock Text="Location:" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="200" Width="auto"
+                                     Text="{Binding SelectedVender.SelectedPart.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                    </Grid>
+                    <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan ="3" BorderThickness="2" AllowDrop="True" Background="Transparent" 
+                                Drop="Image_Drop" DragOver="Image_DragOver">
+                        <Image x:Name="PartImg"  HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Fill" Margin="2,2,2,2" MaxHeight="250" MaxWidth="250"
+                               Source="{Binding SelectedVender.SelectedPart.ImgHEX, Converter={StaticResource HexToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="3" Grid.ColumnSpan="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Vender Parts" HorizontalAlignment="Left" Height="26" Margin="5,0,0,0"
+                        VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+
+            <Border Grid.Row="1"  BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" Height="auto" Width="auto">
+                <Grid>
+                    <DataGrid
+                        CanUserAddRows="False" AlternatingRowBackground="LightGray" AlternationCount="2"
+                        ItemsSource="{Binding SelectedVender.Parts, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedVender.SelectedPart}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        AutoGenerateColumns="False" Margin="5,0,5,5">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="IsHitTestVisible" Value="True"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="Part Number" Binding="{Binding PartNumber}" Width="*" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="Catagory" Binding="{Binding Catagory}" Width="*" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="SubCatagory" Binding="{Binding SubCatagory}" Width="*" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" IsReadOnly="False"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

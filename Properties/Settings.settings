@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutomotiveBuilder.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CurrentProjectFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\AutoProjects\ExampleProject.xml</Value>
+    </Setting>
+    <Setting Name="DefaultDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

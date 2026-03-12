@@ -1,0 +1,395 @@
+﻿<Window x:Class="AutomotiveBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:command="clr-namespace:MVVMtools.Command;assembly=MVVMtools"
+        xmlns:local="clr-namespace:AutomotiveBuilder" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:core="using:Microsoft.Xaml.Interactions.Core" 
+        xmlns:drivetrain="clr-namespace:AutomotiveBuilder.UserCntrls.DriveTrain"
+        mc:Ignorable="d"
+        Title="Project Manager" Height="600" Width="1300"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Height="25">
+            <MenuItem Header="File" Width="56">
+                <MenuItem Name="Open" Header="Open">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenProjectCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="Save" Header="Save">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding SaveProjectCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="SaveAs" Header="SaveAs">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding SaveProjectAsCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="NewProject" Header="New Project">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <command:EventToCommand Command="{Binding AddProjectCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="CloseProject" Header="SaveAs"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Tools" Width="56">
+                <MenuItem Header="Injector" Width="200">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenInjectorCalcCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="Horse Power and ET" Width="200">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenHPETCalcCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="Drive Train Calculations" Width="200">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenDriveTrainCalcCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Reference" Width="65">
+                <MenuItem Header="Parts">
+                    <MenuItem Header="Venders">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <command:EventToCommand Command="{Binding OpenVendersCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem Header="Catagories">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <command:EventToCommand Command="{Binding OpenPartCatagoriesCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Name="MakeModel" Header="Makes and Models">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenMakeModelRepoCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Name="MakeEngine" Header="Makes and Engines">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding OpenMakeEngineRepoCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Project Manager">
+                <Grid Margin="2,2,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="10,0,0,10">
+                            <Label Content="Project Name" HorizontalAlignment="Left" FontWeight="Bold"
+                            Height="29" Margin="0,0,0,0" VerticalAlignment="Top" Width="203"/>
+                            <TextBox x:Name="ProjName" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"
+                            Height="23" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding CurrentProject.Name, Mode=TwoWay, Delay=1500}" VerticalAlignment="Top" Width="375"/>
+                        </StackPanel>
+                        <Border Grid.Row="1" BorderThickness="2" AllowDrop="True" Background="Transparent" 
+                        Drop="Image_Drop" DragOver="Image_DragOver">
+                            <Image x:Name="ProjImg"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill" Margin="2,2,2,2"
+                            Source="{Binding CurrentProject.ImgHEX, Converter={StaticResource HexToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Border>
+                    </Grid>
+                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="2" BorderBrush="Black" Margin="10,0,0,0">
+                        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" IsReadOnly="False"
+                            Text="{Binding CurrentProject.Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+                    </Border>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="0,0,0,0">
+                            <Label Content="Vehicle Info" HorizontalAlignment="Left" Height="26" Margin="0,0,0,0"
+                                        VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+                            <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" Height="auto" Width="auto">
+                                <Grid Name="VehicleInfo"
+                                            Height="auto" Margin="0,0,0,0" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Make" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202" ItemsSource="{Binding ProjMakeList}" 
+                                                        SelectedValue="{Binding CurrentProject.MakeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" DisplayMemberPath="Name">
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Model" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="202" ItemsSource="{Binding ProjModelList}" 
+                                                        SelectedValue="{Binding CurrentProject.ModelID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" DisplayMemberPath="DisplayName">
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Label Content="Engine Info" HorizontalAlignment="Left" Height="26" Margin="0,0,0,0"
+                                        VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+                            <Border Margin="0,0,0,0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" Height="auto" Width="auto">
+                                <Grid Name="VehicleEngineInfo"
+                                            Height="auto" Margin="0,0,0,0" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Make" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="202" ItemsSource="{Binding ProjMakeList}" 
+                                                        SelectedValue="{Binding CurrentProject.EngineMakeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" DisplayMemberPath="Name">
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Model" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Left"/>
+                                            <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,10" VerticalAlignment="Top" Width="202" ItemsSource="{Binding ProjEngineModelList}" 
+                                                        SelectedValue="{Binding CurrentProject.EngineModelID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" DisplayMemberPath="DisplayName">
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="BOM">
+                <Grid Margin="2,2,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TreeView x:Name="trvBOM" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" VerticalAlignment="Stretch"
+                      ItemsSource="{Binding CurrentProject.BOM.Vehicle.Components}" SelectedValuePath="{Binding CurrentProject.SelectedComponentPath}" 
+                      SelectedItemChanged="trvBOM_SelectedItemChanged"
+                      AllowDrop="True">
+                        <TreeView.Resources>
+                            <!-- Drop target highlight brush -->
+                            <SolidColorBrush x:Key="DropTargetBrush" Color="#3399FF" Opacity="0.3"/>
+                            <SolidColorBrush x:Key="InvalidDropBrush" Color="#FF6666" Opacity="0.3"/>
+                        </TreeView.Resources>
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType=TreeView}}" />
+                                <Setter Property="AllowDrop" Value="True"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Padding" Value="2"/>
+                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="TreeViewItem_PreviewMouseLeftButtonDown"/>
+                                <EventSetter Event="PreviewMouseMove" Handler="TreeViewItem_PreviewMouseMove"/>
+                                <EventSetter Event="Drop" Handler="TreeViewItem_Drop"/>
+                                <EventSetter Event="DragOver" Handler="TreeViewItem_DragOver"/>
+                                <EventSetter Event="DragLeave" Handler="TreeViewItem_DragLeave"/>
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Header="Add" 
+                                          Command="{Binding PlacementTarget.Tag.AddBOMitemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                          CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem Header="Delete" 
+                                          Command="{Binding PlacementTarget.Tag.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                          CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Components}">
+                                <TextBlock Text="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                            <Label Content="Bill of Material Component" HorizontalAlignment="Center" Height="26" Margin="0,0,0,0"
+                                        VerticalAlignment="Top" Width="auto" FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,0,5">
+                                    <Label Content="Selected Component" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="150"/>
+                                    <TextBox x:Name="SelectedComponent" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" 
+                                                 Text="{Binding CurrentProject.SelectedComponent.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                                 VerticalAlignment="Top" MinWidth="150" Width="auto"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Catagory" HorizontalAlignment="Center" Height="25" Margin="5,0,0,0" VerticalAlignment="Top" Width="202"/>
+                                    <ComboBox HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="202"
+                                      ItemsSource="{Binding PartCatagories}" DisplayMemberPath="Name" SelectedValuePath="ID"
+                                      SelectedValue="{Binding CurrentProject.SelectedComponent.CategoryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Sub-Catagory" HorizontalAlignment="Center" Height="25" Margin="5,0,0,0" VerticalAlignment="Top" Width="202"/>
+                                    <ComboBox HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="202"
+                                      ItemsSource="{Binding PartSubCatagories}" DisplayMemberPath="Name" SelectedValuePath="ID"
+                                      SelectedValue="{Binding CurrentProject.SelectedComponent.SubCategoryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,5">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                                    <Label Content="Description" HorizontalAlignment="Left" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="150"/>
+                                    <TextBox HorizontalAlignment="Stretch" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" MinWidth="563"
+                                     Text="{Binding CurrentProject.SelectedComponent.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                     VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,5,5">
+                                    <Label Content="SubComp. Remaining Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="155"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.SubAssemblyRemainingCost, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,0,5">
+                                    <Label Content="Required Qty" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="85"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" 
+                                     Text="{Binding CurrentProject.SelectedComponent.NumRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                     VerticalAlignment="Top" Width="85" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5">
+                                    <Label Content="Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="85"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" 
+                                     Text="{Binding CurrentProject.SelectedComponent.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="85" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5">
+                                    <Label Content="Total Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="85"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap"  IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.TotalCost, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="85" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5">
+                                    <Label Content="Remaining Qty" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="95"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap"  IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.RemainingPartsRequired, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                     VerticalAlignment="Top" Width="95" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5">
+                                    <Label Content="Remaining Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="100"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap"  IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.RemainingCost, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,5,5">
+                                    <Label Content="Assembly Remaining Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="155"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.AssemblyRemainingCost, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,5,5">
+                                    <Label Content="Assembly Unadjusted Cost" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" Width="155"/>
+                                    <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" IsReadOnly="True"
+                                     Text="{Binding CurrentProject.SelectedComponent.AssemblyCost, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500, StringFormat=C}" 
+                                     VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                                <Image x:Name="CompImg"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" Height="150" Stretch="Fill" Margin="2,2,2,2"
+                                Source="{Binding CurrentProject.SelectedComponent.ImgHEX, Converter={StaticResource HexToImageConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonDown="CompImg_MouseLeftButtonDown"/>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Part Selected:" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto"/>
+                                        <TextBlock HorizontalAlignment="Left" Height="25" Margin="5,0,0,0"
+                                     Text="{Binding CurrentProject.SelectedComponent.SelectedComponentPart.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                     VerticalAlignment="Center" Width="auto"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Quantity On Hand:" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto"/>
+                                        <TextBlock HorizontalAlignment="Left" Height="25" Margin="5,0,0,0"
+                                        Text="{Binding CurrentProject.SelectedComponent.PartsOnHand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Delay=1500}" 
+                                        VerticalAlignment="Center" Width="auto"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                            <DataGrid ItemsSource="{Binding CurrentProject.SelectedComponent.UsedParts}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="150" Width="Auto" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Part No." Binding="{Binding PartNumber}" MinWidth="150" Width="Auto" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Cost Each" Binding="{Binding CostEA, StringFormat=C}" Width="auto" IsReadOnly="False"/>
+                                    <DataGridTextColumn Header="Quantity Used" Binding="{Binding QuantityUsed}" Width="auto" IsReadOnly="False"/>
+                                    <DataGridTextColumn Header="Quantity Removed" Binding="{Binding QuantityRemoved}" Width="auto" IsReadOnly="False"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                        <Menu Grid.Row="1">
+                            <MenuItem Header="Add Part" Command="{Binding AddPartCommand}" CommandParameter="{Binding CurrentProject.SelectedComponent}"
+                                  FontWeight="Normal"/>
+                            <MenuItem Header="{Binding CurrentProject.SelectedComponent.EnableCompPrtSelTxt}" Command="{Binding EnablePartSelCommand}" CommandParameter="{Binding CurrentProject.SelectedComponent}"
+                                  FontWeight="Normal"/>
+                        </Menu>
+                        <DataGrid Grid.Row="2" Margin="5,0,5,5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" HeadersVisibility="Column"
+                              ItemsSource="{Binding CurrentProject.SelectedComponent.OptionalParts}" IsReadOnly="False"
+                              SelectedItem="{Binding CurrentProject.SelectedComponent.SelectedPart}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Part Name" Binding="{Binding Name}" MinWidth="150" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Vender" Binding="{Binding Vender}" MinWidth="100" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Part No." Binding="{Binding PartNumber}" MinWidth="150" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Cost" Binding="{Binding Cost, StringFormat=C}" Width="100" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Header="URL">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Link" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=DataContext.OpenPartURLCommand}"
+                                                CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="On Hand" Binding="{Binding QuantityOnHand}" Width="100" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Drive Train">
+                <drivetrain:DriveTrainUC DataContext="{Binding DriveTrainVM}"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
