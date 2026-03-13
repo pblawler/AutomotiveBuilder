@@ -246,7 +246,7 @@ namespace AutomotiveBuilder.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;V1.0.0.0;component/views/hpandetcalculatorview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;component/views/hpandetcalculatorview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\HPandETcalculatorView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

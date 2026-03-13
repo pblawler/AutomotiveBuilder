@@ -54,7 +54,7 @@ namespace AutomotiveBuilder.UserCntrls.DriveTrain {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;V1.0.0.0;component/usercntrls/drivetrain/drivetrainuc.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;component/usercntrls/drivetrain/drivetrainuc.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserCntrls\DriveTrain\DriveTrainUC.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

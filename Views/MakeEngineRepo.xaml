@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomotiveBuilder.Views"
-        xmlns:command="clr-namespace:MVVMtools.Command;assembly=MVVMtools"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Make Engine Repo" Height="900" Width="1600"
@@ -24,21 +23,21 @@
                 <MenuItem Name="Open" Header="Open">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenMakesFileCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenMakesFileCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="Save" Header="Save">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveMakesCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding SaveMakesCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="SaveAs" Header="SaveAs">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveMakesAsCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding SaveMakesAsCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
@@ -46,9 +45,9 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
-                           TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
+                               TargetObject="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
@@ -70,7 +69,7 @@
                                     <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesNameCommand}" PassEventArgsToCommand="True" />
+                                                <i:InvokeCommandAction Command="{Binding SortMakesNameCommand}" PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </GridViewColumnHeader>
@@ -81,7 +80,7 @@
                                     <GridViewColumnHeader Content="Country" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesCountryCommand}" PassEventArgsToCommand="True" />
+                                                <i:InvokeCommandAction Command="{Binding SortMakesCountryCommand}" PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>                                        
                                     </GridViewColumnHeader>
@@ -96,7 +95,7 @@
                     </ListView.View>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <command:EventToCommand Command="{Binding SelectMakeCommand}" PassEventArgsToCommand="True" />
+                            <i:InvokeCommandAction Command="{Binding SelectMakeCommand}" PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListView>
@@ -138,7 +137,7 @@
                         Width="139" HorizontalContentAlignment="Center" FontWeight="Bold">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding BrowseMakeURLCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding BrowseMakeURLCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
@@ -156,7 +155,7 @@
                         FontWeight="Bold">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding AddEngineCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding AddEngineCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
@@ -179,7 +178,7 @@
                                     <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name2">
                                         <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortEnginesNameCommand}" PassEventArgsToCommand="True" />
+                                                <i:InvokeCommandAction Command="{Binding SortEnginesNameCommand}" PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>-->
                                     </GridViewColumnHeader>
@@ -190,7 +189,7 @@
                                     <GridViewColumnHeader Content="Model" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country2">
                                         <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortEnginesModelCommand}" PassEventArgsToCommand="True" />
+                                                <i:InvokeCommandAction Command="{Binding SortEnginesModelCommand}" PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>-->
                                     </GridViewColumnHeader>
@@ -206,7 +205,7 @@
                     </ListView.View>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <command:EventToCommand Command="{Binding SelectModelCommand}" PassEventArgsToCommand="True" />
+                            <i:InvokeCommandAction Command="{Binding SelectModelCommand}" PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListView>
@@ -233,7 +232,7 @@
                     Width="139" HorizontalContentAlignment="Center" FontWeight="Bold">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding BrowseEngineURLCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding BrowseEngineURLCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>

@@ -126,7 +126,7 @@ namespace AutomotiveBuilder.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;V1.0.0.0;component/views/injectorcalcview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;component/views/injectorcalcview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\InjectorCalcView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

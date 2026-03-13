@@ -70,7 +70,7 @@ namespace AutomotiveBuilder.Views.PartUtils {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;V1.0.0.0;component/views/partutils/selectpartview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;component/views/partutils/selectpartview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\PartUtils\SelectPartView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomotiveBuilder", "AutomotiveBuilder.csproj", "{89DA5676-58FC-479B-BB3E-6648D15A798F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMtools", "..\MVVM\MVVMtools\MVVMtools.csproj", "{CA51A576-6A73-3F4E-4F65-0FCC38D9AD03}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89DA5676-58FC-479B-BB3E-6648D15A798F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA51A576-6A73-3F4E-4F65-0FCC38D9AD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA51A576-6A73-3F4E-4F65-0FCC38D9AD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA51A576-6A73-3F4E-4F65-0FCC38D9AD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA51A576-6A73-3F4E-4F65-0FCC38D9AD03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

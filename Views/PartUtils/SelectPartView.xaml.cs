@@ -1,5 +1,5 @@
 ﻿using AutomotiveBuilder.DAL;
-using AutomotiveBuilder.PartUtils;
+using AutomotiveBuilder.ViewModels.Parts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

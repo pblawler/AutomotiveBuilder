@@ -2,15 +2,15 @@
 using AutomotiveBuilder.Properties;
 using AutomotiveBuilder.Statics;
 using AutomotiveBuilder.Views;
-using MVVMtools;
-using MVVMtools.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace AutomotiveBuilder
 {
-    class VenderVM : ViewModelBase
+    public partial class VenderVM : ObservableObject
     {
 
         #region Constructor
@@ -22,8 +22,8 @@ namespace AutomotiveBuilder
         {
             _venderList = new VenderList();
             if (_venderList.Count > 0) SelectedVender = _venderList[0];
-            RaisePropertyChanged(nameof(MyVenderList));
-            RaisePropertyChanged(nameof(SelectedVender));
+            OnPropertyChanged(nameof(MyVenderList));
+            OnPropertyChanged(nameof(SelectedVender));
         }
 
         #endregion
@@ -57,10 +57,10 @@ namespace AutomotiveBuilder
                         return;
                     }
                     _selectedVender.PropertyChanged += _selectedVender_PropertyChanged;
-                    RaisePropertyChanged(nameof(SelectedVender));
-                    RaisePropertyChanged(nameof(PartCatagories));
-                    RaisePropertyChanged(nameof(PartSubCatagories));
-                    RaisePropertyChanged(nameof(SelectedVender.SelectedPart));
+                    OnPropertyChanged(nameof(SelectedVender));
+                    OnPropertyChanged(nameof(PartCatagories));
+                    OnPropertyChanged(nameof(PartSubCatagories));
+                    OnPropertyChanged(nameof(SelectedVender.SelectedPart));
                     if ((_selectedVender.Parts != null) && (_selectedVender.Parts.Count > 0)) _selectedVender.SelectedPart = _selectedVender.Parts[0];
                 }
             }
@@ -68,11 +68,11 @@ namespace AutomotiveBuilder
 
         private void _selectedVender_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(e.PropertyName);
+            OnPropertyChanged(e.PropertyName);
             switch(e.PropertyName)
             {
                 case "CategoryID":
-                    RaisePropertyChanged(nameof(PartSubCatagories));
+                    OnPropertyChanged(nameof(PartSubCatagories));
                     break;
 
             }
@@ -88,7 +88,7 @@ namespace AutomotiveBuilder
             set
             {
                 _venderList = value;
-                RaisePropertyChanged(nameof(MyVenderList));
+                OnPropertyChanged(nameof(MyVenderList));
             }
         }
         public string FileName
@@ -99,7 +99,7 @@ namespace AutomotiveBuilder
                 if (_FileName != value)
                 {
                     _FileName = value;
-                    RaisePropertyChanged(nameof(FileName));
+                    OnPropertyChanged(nameof(FileName));
                 }
             }
         }
@@ -109,8 +109,8 @@ namespace AutomotiveBuilder
             set
             {
                 _selectedPartCatagory = value;
-                RaisePropertyChanged(nameof(SelectedPartCatagory));
-                RaisePropertyChanged(nameof(PartSubCatagories));
+                OnPropertyChanged(nameof(SelectedPartCatagory));
+                OnPropertyChanged(nameof(PartSubCatagories));
             }
         }
         public BindingList<PartCatagory> PartCatagories
@@ -217,8 +217,8 @@ namespace AutomotiveBuilder
             np.Description = "New Part Catagory";
             _selectedPartCatagory = np;
             StaticMethods.PartCatagories.Add(np);
-            RaisePropertyChanged(nameof(PartCatagories));
-            RaisePropertyChanged(nameof(SelectedPartCatagory));
+            OnPropertyChanged(nameof(PartCatagories));
+            OnPropertyChanged(nameof(SelectedPartCatagory));
         }
         private void AddSubCatagory(object Args)
         {
@@ -230,13 +230,13 @@ namespace AutomotiveBuilder
             np.Description = "New Part SubCatagory";            
             SelectedPartCatagory.SubCategories.Add(np);
             SelectedPartCatagory.SelectedSubcatagory = np;
-            RaisePropertyChanged(nameof(SelectedPartCatagory.SubCategories));
-            RaisePropertyChanged(nameof(SelectedPartCatagory.SelectedSubcatagory));
+            OnPropertyChanged(nameof(SelectedPartCatagory.SubCategories));
+            OnPropertyChanged(nameof(SelectedPartCatagory.SelectedSubcatagory));
         }
         private void SaveCatagories(object Args)
         {
             StaticMethods.SavePartCatagories();
-            RaisePropertyChanged(nameof(PartCatagories));
+            OnPropertyChanged(nameof(PartCatagories));
         }
         private void AddVenderPart(object Args)
         {
@@ -253,9 +253,9 @@ namespace AutomotiveBuilder
         #region PropertyEvents
         private void UpdateAllProperties()
         {
-            RaisePropertyChanged(nameof(MyVenderList));
-            RaisePropertyChanged(nameof(SelectedVender));
-            RaisePropertyChanged(nameof(SelectedVender.Parts));
+            OnPropertyChanged(nameof(MyVenderList));
+            OnPropertyChanged(nameof(SelectedVender));
+            OnPropertyChanged(nameof(SelectedVender.Parts));
         }
         #endregion
     }

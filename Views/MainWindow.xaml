@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:command="clr-namespace:MVVMtools.Command;assembly=MVVMtools"
         xmlns:local="clr-namespace:AutomotiveBuilder" 
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:core="using:Microsoft.Xaml.Interactions.Core" 
         xmlns:drivetrain="clr-namespace:AutomotiveBuilder.UserCntrls.DriveTrain"
         mc:Ignorable="d"
         Title="Project Manager" Height="600" Width="1300"
@@ -21,28 +19,28 @@
                 <MenuItem Name="Open" Header="Open">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenProjectCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenProjectCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="Save" Header="Save">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveProjectCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding SaveProjectCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="SaveAs" Header="SaveAs">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveProjectAsCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding SaveProjectAsCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="NewProject" Header="New Project">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                            <command:EventToCommand Command="{Binding AddProjectCommand}" PassEventArgsToCommand="True"/>
+                            <i:InvokeCommandAction Command="{Binding AddProjectCommand}" PassEventArgsToCommand="True"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
@@ -52,21 +50,21 @@
                 <MenuItem Header="Injector" Width="200">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenInjectorCalcCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenInjectorCalcCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Header="Horse Power and ET" Width="200">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenHPETCalcCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenHPETCalcCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Header="Drive Train Calculations" Width="200">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenDriveTrainCalcCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenDriveTrainCalcCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
@@ -76,14 +74,14 @@
                     <MenuItem Header="Venders">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding OpenVendersCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding OpenVendersCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
                     <MenuItem Header="Catagories">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding OpenPartCatagoriesCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding OpenPartCatagoriesCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
@@ -91,14 +89,14 @@
                 <MenuItem Name="MakeModel" Header="Makes and Models">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenMakeModelRepoCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenMakeModelRepoCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <MenuItem Name="MakeEngine" Header="Makes and Engines">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenMakeEngineRepoCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding OpenMakeEngineRepoCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>

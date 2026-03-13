@@ -56,7 +56,7 @@ namespace AutomotiveBuilder.Views.DriveTrain {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;V1.0.0.0;component/views/drivetrain/drivetrainview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutomotiveBuilder;component/views/drivetrain/drivetrainview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\DriveTrain\DriveTrainView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -6,8 +6,8 @@ using AutomotiveBuilder.ViewModels.DriveTrain;
 using AutomotiveBuilder.Views;
 using AutomotiveBuilder.Views.DriveTrain;
 using AutomotiveBuilder.Views.PartUtils;
-using MVVMtools;
-using MVVMtools.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -16,7 +16,7 @@ using static AutomotiveBuilder.Static.MessengerService;
 
 namespace AutomotiveBuilder
 {
-    class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ObservableObject
     {
         #region Message Handlers
 
@@ -44,8 +44,8 @@ namespace AutomotiveBuilder
                         switch(text)
                     {
                         case "Part Catagories":
-                            RaisePropertyChanged(nameof(PartCatagories));
-                            RaisePropertyChanged(nameof(PartSubCatagories));
+                            OnPropertyChanged(nameof(PartCatagories));
+                            OnPropertyChanged(nameof(PartSubCatagories));
                             break;
 
                         default:
@@ -196,6 +196,7 @@ namespace AutomotiveBuilder
             }
         }
         public bool Loaded { get{ return _Loaded; } }
+
         public DriveTrainVM DriveTrainVM
         {
             get
@@ -218,7 +219,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcToolInjRF = value;
-                RaisePropertyChanged(nameof(calcToolInjRF));
+                OnPropertyChanged(nameof(calcToolInjRF));
                 CalculateInjectorAF();
             }
         }
@@ -228,7 +229,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcToolInjRP = value;
-                RaisePropertyChanged(nameof(calcToolInjRP));
+                OnPropertyChanged(nameof(calcToolInjRP));
                 CalculateInjectorAF();
             }
         }
@@ -238,7 +239,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcToolInjAP = value;
-                RaisePropertyChanged(nameof(calcToolInjAP));
+                OnPropertyChanged(nameof(calcToolInjAP));
                 CalculateInjectorAF();
             }
         }
@@ -252,7 +253,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcCHP = value;
-                RaisePropertyChanged(nameof(calcCHP));
+                OnPropertyChanged(nameof(calcCHP));
                 CalculateInjectorRequiredFlow();
             }
         }
@@ -262,7 +263,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcNoInj = value;
-                RaisePropertyChanged(nameof(calcNoInj));
+                OnPropertyChanged(nameof(calcNoInj));
                 CalculateInjectorRequiredFlow();
             }
         }
@@ -272,7 +273,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcBSFC = value;
-                RaisePropertyChanged(nameof(calcBSFC));
+                OnPropertyChanged(nameof(calcBSFC));
                 CalculateInjectorRequiredFlow();
             }
         }
@@ -282,7 +283,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcDutyCycle = value;
-                RaisePropertyChanged(nameof(calcDutyCycle));
+                OnPropertyChanged(nameof(calcDutyCycle));
                 CalculateInjectorRequiredFlow();
             }
         }
@@ -296,7 +297,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcWHP = value;
-                RaisePropertyChanged(nameof(calcWHP));
+                OnPropertyChanged(nameof(calcWHP));
                 if(!_calcPerf) CalculateET();
             }
         }
@@ -306,7 +307,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calcVehicalWght = value;
-                RaisePropertyChanged(nameof(calcVehicalWght));
+                OnPropertyChanged(nameof(calcVehicalWght));
                 if (!_calcPerf) CalculateET();
             }
         }
@@ -316,7 +317,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calc14et = value;
-                RaisePropertyChanged(nameof(calc14et));
+                OnPropertyChanged(nameof(calc14et));
                 if (!_calcPerf) CalculateRWHP();
             }
         }
@@ -326,7 +327,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calc18et = value;
-                RaisePropertyChanged(nameof(calc18et));
+                OnPropertyChanged(nameof(calc18et));
                 if (!_calcPerf) CalculateFeRWHP();
             }
         }
@@ -354,7 +355,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calc18mph = value;
-                RaisePropertyChanged(nameof(calc18mph));
+                OnPropertyChanged(nameof(calc18mph));
                 if (!_calcPerf) CalculateTSERWHP();
             }
         }
@@ -364,7 +365,7 @@ namespace AutomotiveBuilder
             set
             {
                 _calc18mph = value;
-                RaisePropertyChanged(nameof(calc18mph));
+                OnPropertyChanged(nameof(calc18mph));
                 if (!_calcPerf) CalculateVWe();
             }
         }
@@ -374,164 +375,29 @@ namespace AutomotiveBuilder
         #endregion
 
         #region Relay Commands
-        private RelayCommand<object> _AddProject;
-        private RelayCommand<object> _SaveProject;
-        private RelayCommand<object> _SaveProjectAs;
-        private RelayCommand<object> _OpenProject;
-        private RelayCommand<object> _SetMake;
-        private RelayCommand<object> _OpenMakeModelRepo;
-        private RelayCommand<object> _OpenMakeEngineRepo;
-        private RelayCommand<object> _OpenVenders;
-        private RelayCommand<object> _OpenPartCatagories;
-        private RelayCommand<object> _OpenInjectorCalc;
-        private RelayCommand<object> _OpenHPETCalc;
-        private RelayCommand<object> _AddBOMitem;
-        private RelayCommand<object> _AddPart;
-        private RelayCommand<object> _EnablePartSel;
-        private RelayCommand<object> _OpenPartURL;
-        private RelayCommand<object> _DeleteItem;
-        private RelayCommand<object> _OpenDriveTrainCalc;
 
-        public RelayCommand<object> AddProjectCommand
+        [RelayCommand]
+        private void AddProject(object args)
         {
-            get
-            {
-                return _AddProject ?? (_AddProject = new RelayCommand<object>((X) => AddProject(X)));
-            }
-        }
-        public RelayCommand<object> SaveProjectCommand
-        {
-            get
-            {
-                return _SaveProject ?? (_SaveProject = new RelayCommand<object>((X) => SaveProject(X)));
-            }
-        }
-        public RelayCommand<object> SaveProjectAsCommand
-        {
-            get
-            {
-                return _SaveProjectAs ?? (_SaveProjectAs = new RelayCommand<object>((X) => SaveProjectAs(X)));
-            }
-        }
-        public RelayCommand<object> OpenProjectCommand
-        {
-            get
-            {
-                return _OpenProject ?? (_OpenProject = new RelayCommand<object>((X) => OpenProject(X)));
-            }
-        }
-        public RelayCommand<object> SetMakeCommand
-        {
-            get
-            {
-                return _SetMake ?? (_OpenProject = new RelayCommand<object>((X) => SetMake(X)));
-            }
-        }
-        public RelayCommand<object> OpenMakeModelRepoCommand
-        {
-            get
-            {
-                return _OpenMakeModelRepo ?? (_OpenProject = new RelayCommand<object>((X) => OpenMakeModelRepo(X)));
-            }
-        }
-        public RelayCommand<object> OpenMakeEngineRepoCommand
-        {
-            get
-            {
-                return _OpenMakeEngineRepo ?? (_OpenMakeEngineRepo = new RelayCommand<object>((X) => OpenMakeEngineRepo(X)));
-            }
-        }
-        public RelayCommand<object> OpenVendersCommand
-        {
-            get
-            {
-                return _OpenVenders ?? (_OpenVenders = new RelayCommand<object>((X) => OpenVenders(X)));
-            }
-        }
-        public RelayCommand<object> OpenPartCatagoriesCommand
-        {
-            get
-            {
-                return _OpenPartCatagories ?? (_OpenPartCatagories = new RelayCommand<object>((X) => OpenPartCatagories(X)));
-            }
-        }
-        public RelayCommand<object> OpenInjectorCalcCommand
-        {
-            get
-            {
-                return _OpenInjectorCalc ?? (_OpenInjectorCalc = new RelayCommand<object>((X) => OpenInjectorCalc(X)));
-            }
-        }
-        public RelayCommand<object> OpenHPETCalcCommand
-        {
-            get
-            {
-                return _OpenHPETCalc ?? (_OpenHPETCalc = new RelayCommand<object>((X) => OpenHPETCalc(X)));
-            }
-        }
-        public RelayCommand<object> AddBOMitemCommand
-        {
-            get
-            {
-                return _AddBOMitem ?? (_AddBOMitem = new RelayCommand<object>((X) => AddBOMitem(X)));
-            }
-        }
-        public RelayCommand<object> AddPartCommand
-        {
-            get
-            {
-                return _AddPart ?? (_AddPart = new RelayCommand<object>((X) => AddPart(X)));
-            }
-        }
-        public RelayCommand<object> EnablePartSelCommand
-        {
-            get
-            {
-                return _EnablePartSel ?? (_EnablePartSel = new RelayCommand<object>((X) => EnablePartSel(X)));
-            }
-        }
-        public RelayCommand<object> OpenPartURLCommand
-        {
-            get
-            {
-                return _OpenPartURL ?? (_OpenPartURL = new RelayCommand<object>((X) => OpenPartURL(X)));
-            }
-        }
-        public RelayCommand<object> DeleteItemCommand
-        {
-            get
-            {
-                return _DeleteItem ?? (_DeleteItem = new RelayCommand<object>((X) => DeleteBOMitem(X)));
-            }
-        }
-        public RelayCommand<object> OpenDriveTrainCalcCommand
-        {
-            get
-            {
-                return _OpenDriveTrainCalc ?? (_OpenDriveTrainCalc = new RelayCommand<object>((X) => OpenDriveTrainCalc(X)));
-            }
-        }
-        
-
-        private void AddProject(object Args)
-        {
-
-            RaisePropertyChanged(nameof(Args.ToString));
+            OnPropertyChanged(nameof(args.ToString));
             UpdateAllProperties();
         }
-        private void SaveProject(object Args)
-        {           
 
+        [RelayCommand]
+        private void SaveProject(object args)
+        {           
             if (_CurrentProject.FileName == "")
             {
                 _CurrentProject.FileName = StaticMethods.ProjectFolder + "ExampleProject.xml";
             }
             _CurrentProject.SaveProject();
             _CurrentProject.BOM.SaveBOM();
-            RaisePropertyChanged(nameof(Args.ToString));
+            OnPropertyChanged(nameof(args.ToString));
             UpdateAllProperties();
         }
-        private void SaveProjectAs(object Args)
+
+        [RelayCommand]
+        private void SaveProjectAs(object args)
         {
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
@@ -566,11 +432,13 @@ namespace AutomotiveBuilder
                 {
                     serializer.Serialize(writer, _CurrentProject);
                 }
-                RaisePropertyChanged(nameof(Args.ToString));
+                OnPropertyChanged(nameof(args.ToString));
                 UpdateAllProperties();
             }
         }
-        private void OpenProject(object Args)
+
+        [RelayCommand]
+        private void OpenProject(object args)
         {
             var fileContent = string.Empty;
 
@@ -599,7 +467,9 @@ namespace AutomotiveBuilder
                 UpdateAllProperties();
             }
         }
-        private void SetMake(object Args)
+
+        [RelayCommand]
+        private void SetMake(object args)
         {
            // Make tmpMake = ProjMakeList.ReturnMakeByID(MakeID);
             //if (tmpMake != null)
@@ -608,37 +478,51 @@ namespace AutomotiveBuilder
             //    UpdateAllProperties();
             //}
         }
-        private void OpenMakeModelRepo(object Args)
+
+        [RelayCommand]
+        private void OpenMakeModelRepo(object args)
         {
             MakeModelRepo makeModelRepo = new MakeModelRepo();
             makeModelRepo.Show();
         }
-        private void OpenMakeEngineRepo(object Args)
+
+        [RelayCommand]
+        private void OpenMakeEngineRepo(object args)
         {
             MakeEngineRepo makeEngineRepo = new MakeEngineRepo();
             makeEngineRepo.Show();
         }
-        private void OpenVenders(object Args)
+
+        [RelayCommand]
+        private void OpenVenders(object args)
         {
             VendersView vendersView = new VendersView();
             vendersView.Show();
         }
-        private void OpenPartCatagories(object Args)
+
+        [RelayCommand]
+        private void OpenPartCatagories(object args)
         {
             PartCatagoriesView partCatagories = new PartCatagoriesView();
             partCatagories.Show();
         }
-        private void OpenInjectorCalc(object Args)
+
+        [RelayCommand]
+        private void OpenInjectorCalc(object args)
         {
             InjectorCalcView injCalc = new InjectorCalcView();
             injCalc.Show();
         }
-        private void OpenHPETCalc(object Args)
+
+        [RelayCommand]
+        private void OpenHPETCalc(object args)
         {
             HPandETcalculatorView hpetCalc = new HPandETcalculatorView();
             hpetCalc.Show();
         }
-        private void AddBOMitem(object Args)
+
+        [RelayCommand]
+        private void AddBOMitem(object args)
         {
             if (_CurrentProject.SelectedComponent == null) return;
             DAL.Component nc = new DAL.Component();
@@ -647,9 +531,11 @@ namespace AutomotiveBuilder
             nc.CategoryID = _CurrentProject.SelectedComponent.CategoryID;
             nc.SubCategoryID = _CurrentProject.SelectedComponent.SubCategoryID;
             _CurrentProject.SelectedComponent.AddComponent(nc);
-            RaisePropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
+            OnPropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
         }
-        private void DeleteBOMitem(object Args)
+
+        [RelayCommand]
+        private void DeleteItem(object args)
         {
             if (_CurrentProject.SelectedComponent == null) return;
             if (MessageBox.Show("Delete " + _CurrentProject.SelectedComponent.Name + "?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -667,10 +553,11 @@ namespace AutomotiveBuilder
                         if(RemoveSubComponent(bc, _CurrentProject.SelectedComponent.ID)) break;
                     }
                 }
-                RaisePropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
+                OnPropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
             }
             Cursor.Current = Cursors.Default;
         }
+
         private bool RemoveSubComponent(DAL.Component TargetComponent, string ID)
         {
             bool rtn = false;
@@ -691,33 +578,42 @@ namespace AutomotiveBuilder
                 }
             }
             return rtn;
-        }        
-        private void AddPart(object Args)
+        }
+
+        [RelayCommand]
+        private void AddPart(object args)
         { 
             SelectPartView spv = new SelectPartView();
             spv.ShowDialog();
             _CurrentProject.SelectedComponent.AddPart(spv.SelectedPart);
             spv.Close();
-            RaisePropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
+            OnPropertyChanged(nameof(CurrentProject.BOM.Vehicle.Components));
         }
-        private void EnablePartSel(object Args)
+
+        [RelayCommand]
+        private void EnablePartSel(object args)
         {
             if (_CurrentProject.SelectedComponent == null) return;
             _CurrentProject.SelectedComponent.EnableSelPrt = !_CurrentProject.SelectedComponent.EnableSelPrt;
         }
-        private void OpenPartURL(object Args)
+
+        [RelayCommand]
+        private void OpenPartURL(object args)
         {
             if (_CurrentProject.SelectedComponent == null) return;
             if (_CurrentProject.SelectedComponent.SelectedPart == null) return;
             if (_CurrentProject.SelectedComponent.SelectedPart.URL == "") return;
             Process.Start(new ProcessStartInfo { FileName = _CurrentProject.SelectedComponent.SelectedPart.URL, UseShellExecute = true });
         }
-        private void OpenDriveTrainCalc(object Args)
+
+        [RelayCommand]
+        private void OpenDriveTrainCalc(object args)
         {
             DriveTrainView driveTrainView = new DriveTrainView();
             driveTrainView.Show();
-            DriveTrainVM DTVM = driveTrainView.DataContext as DriveTrainVM;
-            DTVM.DriveTrainData = CurrentProject.DriveTrain;
+            //DriveTrainVM DTVM = driveTrainView.DataContext as DriveTrainVM;
+            driveTrainView.DataContext = new DriveTrainVM();
+            ((DriveTrainVM)driveTrainView.DataContext).DriveTrainData = CurrentProject.DriveTrain;
         }
         #endregion
 
@@ -760,7 +656,7 @@ namespace AutomotiveBuilder
             {
                 _calcToolInjAF = 0;
             }
-            RaisePropertyChanged(nameof(calcToolInjAF));
+            OnPropertyChanged(nameof(calcToolInjAF));
         }
         private void CalculateInjectorRequiredFlow()
         {
@@ -773,7 +669,7 @@ namespace AutomotiveBuilder
             {
                 _calcInjectorSize = 0;
             }
-            RaisePropertyChanged(nameof(calcInjectorSize));
+            OnPropertyChanged(nameof(calcInjectorSize));
         }
         private void CalculateET()
         {
@@ -784,12 +680,12 @@ namespace AutomotiveBuilder
             _calc14mph =(float) (234.0 * Math.Pow(((float)_calcWHP /_calcVehicalWght),((float)1 / 3)));
             _calc18mph = (float)(147.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
             _calcPerf = false;
         }
         private void CalculateRWHP()
@@ -801,12 +697,12 @@ namespace AutomotiveBuilder
             _calc14mph = (float)(234.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
             _calc18mph = (float)(147.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcWHP));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calcWHP));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
             _calcPerf = false;
         }
         private void CalculateFeRWHP()
@@ -818,12 +714,12 @@ namespace AutomotiveBuilder
             _calc14mph = (float)(234.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
             _calc18mph = (float)(147.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcWHP));
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calcWHP));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
             _calcPerf = false;
         }
         private void CalculateTSRWHP()
@@ -835,13 +731,13 @@ namespace AutomotiveBuilder
             _calc18et = (float)(3.58 * Math.Pow(((float)_calcVehicalWght / _calcWHP), ((float)1 / 3)));
             _calc18mph = (float)(147.0 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcWHP));
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calcWHP));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
             _calcPerf = false;
         }
         private void CalculateTSERWHP()
@@ -853,13 +749,13 @@ namespace AutomotiveBuilder
             _calc18et = (float)(3.58 * Math.Pow(((float)_calcVehicalWght / _calcWHP), ((float)1 / 3)));
             _calc14mph = (float)(234 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcWHP));
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calcWHP));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
 
             _calcPerf = false;
         }
@@ -872,12 +768,12 @@ namespace AutomotiveBuilder
             _calc18et = (float)(3.58 * Math.Pow(((float)_calcVehicalWght / _calcWHP), ((float)1 / 3)));
             _calc14mph = (float)(234 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcVehicalWght));
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calcVehicalWght));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
 
             _calcPerf = false;
         }
@@ -890,14 +786,14 @@ namespace AutomotiveBuilder
             _calc18et = (float)(3.58 * Math.Pow(((float)_calcVehicalWght / _calcWHP), ((float)1 / 3)));
             _calc18mph = (float)(147 * Math.Pow(((float)_calcWHP / _calcVehicalWght), ((float)1 / 3)));
 
-            RaisePropertyChanged(nameof(calcVehicalWght));
-            RaisePropertyChanged(nameof(calc14et));
-            RaisePropertyChanged(nameof(calc18et));
-            RaisePropertyChanged(nameof(calc18mph));
-            RaisePropertyChanged(nameof(calc18mphW));
-            RaisePropertyChanged(nameof(calc14mph));
-            RaisePropertyChanged(nameof(calc14mphW));
-            RaisePropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calcVehicalWght));
+            OnPropertyChanged(nameof(calc14et));
+            OnPropertyChanged(nameof(calc18et));
+            OnPropertyChanged(nameof(calc18mph));
+            OnPropertyChanged(nameof(calc18mphW));
+            OnPropertyChanged(nameof(calc14mph));
+            OnPropertyChanged(nameof(calc14mphW));
+            OnPropertyChanged(nameof(calc18mph));
 
             _calcPerf = false;
         }
@@ -907,11 +803,11 @@ namespace AutomotiveBuilder
         #region PropertyEvents
         private void UpdateAllProperties()
         {
-            RaisePropertyChanged(nameof(CurrentProject));
-            RaisePropertyChanged(nameof(ProjModelList));
-            RaisePropertyChanged(nameof(ProjEngineModelList));
-            RaisePropertyChanged(nameof(PartCatagories));
-            RaisePropertyChanged(nameof(PartSubCatagories));
+            OnPropertyChanged(nameof(CurrentProject));
+            OnPropertyChanged(nameof(ProjModelList));
+            OnPropertyChanged(nameof(ProjEngineModelList));
+            OnPropertyChanged(nameof(PartCatagories));
+            OnPropertyChanged(nameof(PartSubCatagories));
         }
         #endregion
     }

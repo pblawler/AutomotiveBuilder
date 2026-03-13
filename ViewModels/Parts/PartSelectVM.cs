@@ -2,15 +2,15 @@
 using AutomotiveBuilder.Properties;
 using AutomotiveBuilder.Statics;
 using AutomotiveBuilder.Views;
-using MVVMtools;
-using MVVMtools.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace AutomotiveBuilder.PartUtils
+namespace AutomotiveBuilder.ViewModels.Parts
 {
-    class PartSelectVM : ViewModelBase
+    public partial class PartSelectVM : ObservableObject
     {
 
         #region Constructor
@@ -20,8 +20,8 @@ namespace AutomotiveBuilder.PartUtils
         /// </summary>
         public PartSelectVM()
         {
-            RaisePropertyChanged(nameof(MyVenderList));
-            RaisePropertyChanged(nameof(SelectedVender));
+            OnPropertyChanged(nameof(MyVenderList));
+            OnPropertyChanged(nameof(SelectedVender));
             LoadParts();
         }
 
@@ -53,22 +53,22 @@ namespace AutomotiveBuilder.PartUtils
                     _selectedVender = value;
                     _selectedVender.PropertyChanged += _selectedVender_PropertyChanged;
                     LoadParts();
-                    RaisePropertyChanged(nameof(TableParts));
-                    RaisePropertyChanged(nameof(SelectedVender));
-                    RaisePropertyChanged(nameof(PartCatagories));
-                    RaisePropertyChanged(nameof(PartSubCatagories));
-                    RaisePropertyChanged(nameof(SelectedVender.SelectedPart));
+                    OnPropertyChanged(nameof(TableParts));
+                    OnPropertyChanged(nameof(SelectedVender));
+                    OnPropertyChanged(nameof(PartCatagories));
+                    OnPropertyChanged(nameof(PartSubCatagories));
+                    OnPropertyChanged(nameof(SelectedVender.SelectedPart));
                     if ((_selectedVender.Parts != null) && (_selectedVender.Parts.Count > 0)) _selectedVender.SelectedPart = _selectedVender.Parts[0];
                 }
             }
         }
         private void _selectedVender_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(e.PropertyName);
+            OnPropertyChanged(e.PropertyName);
             switch(e.PropertyName)
             {
                 case "CategoryID":
-                    RaisePropertyChanged(nameof(PartSubCatagories));
+                    OnPropertyChanged(nameof(PartSubCatagories));
                     break;
 
             }
@@ -95,7 +95,7 @@ namespace AutomotiveBuilder.PartUtils
                 if (_FileName != value)
                 {
                     _FileName = value;
-                    RaisePropertyChanged(nameof(FileName));
+                    OnPropertyChanged(nameof(FileName));
                 }
             }
         }
@@ -105,8 +105,8 @@ namespace AutomotiveBuilder.PartUtils
             set
             {
                 _selectedPartCatagory = value;
-                RaisePropertyChanged(nameof(SelectedPartCatagory));
-                RaisePropertyChanged(nameof(PartSubCatagories));
+                OnPropertyChanged(nameof(SelectedPartCatagory));
+                OnPropertyChanged(nameof(PartSubCatagories));
             }
         }
         public BindingList<PartSubCatagory> PartSubCatagories
@@ -129,7 +129,7 @@ namespace AutomotiveBuilder.PartUtils
             set
             {
                 _selectedPartSubCatagory = value;
-                RaisePropertyChanged(nameof(SelectedPartSubCatagory));
+                OnPropertyChanged(nameof(SelectedPartSubCatagory));
             }
         }
         public PartList TableParts
@@ -142,7 +142,7 @@ namespace AutomotiveBuilder.PartUtils
             set
             {
                 _selectedPart = value;
-                RaisePropertyChanged(nameof(SelectedPart));
+                OnPropertyChanged(nameof(SelectedPart));
             }
         }
         public string CatagoryID
@@ -152,8 +152,8 @@ namespace AutomotiveBuilder.PartUtils
             {
                 _catagoryID = value;
                 LoadParts();
-                RaisePropertyChanged(nameof(PartSubCatagories));
-                RaisePropertyChanged(nameof(CatagoryID));
+                OnPropertyChanged(nameof(PartSubCatagories));
+                OnPropertyChanged(nameof(CatagoryID));
             }
         }
         public string SubCatagoryID
@@ -163,7 +163,7 @@ namespace AutomotiveBuilder.PartUtils
             {
                 _subCatagoryID = value;
                 LoadParts();
-                RaisePropertyChanged(nameof(SubCatagoryID));
+                OnPropertyChanged(nameof(SubCatagoryID));
             }
         }
         public BindingList<PartCatagory> PartCatagories
@@ -235,7 +235,7 @@ namespace AutomotiveBuilder.PartUtils
                     }
                 }
             }
-            RaisePropertyChanged(nameof(TableParts));
+            OnPropertyChanged(nameof(TableParts));
         }
 
     }

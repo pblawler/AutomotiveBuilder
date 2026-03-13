@@ -10,18 +10,18 @@ using System.Windows;
 using System.Xml.Serialization;
 using AutomotiveBuilder.DAL;
 using AutomotiveBuilder.Statics;
-using MVVMtools;
-using MVVMtools.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AutomotiveBuilder.ViewModels
 {
-    internal class MakeModelViewModel : ViewModelBase
+    public partial class MakeModelVM : ObservableObject
     {
         #region Constructor
-        public MakeModelViewModel()
+        public MakeModelVM()
         {
             makes = StaticMethods.LoadMakes();
-            RaisePropertyChanged(nameof(Makes));
+            OnPropertyChanged(nameof(Makes));
             SelectedMake = Makes[0];
         }
         #endregion
@@ -39,7 +39,7 @@ namespace AutomotiveBuilder.ViewModels
         #region Properties
         public Make SelectedMake {  get { return _selectedmake; } set { _selectedmake = value; } } 
         public Model SelectedModel { get { return _selectedmodel; } set { _selectedmodel = value; } }
-        public Engine SelectedEngine { get { return _selectedEngine; } set { _selectedEngine = value; RaisePropertyChanged(nameof(SelectedEngine)); } }
+        public Engine SelectedEngine { get { return _selectedEngine; } set { _selectedEngine = value; OnPropertyChanged(nameof(SelectedEngine)); } }
         public MakesList Makes { get { return makes; } set { makes = value; } }
         public BindingList<Model> Models { get { return models; } set { models = value; } }
         public BindingList<Engine> Engines { get { return engines; } set { engines = value; } }
@@ -170,9 +170,8 @@ namespace AutomotiveBuilder.ViewModels
             if (FileName != "")
             {
                 Makes.SaveMakeList(FileName);
-                RaisePropertyChanged(nameof(FileName));
-                RaisePropertyChanged(nameof(Makes));
-            }            
+                OnPropertyChanged(nameof(FileName));
+                OnPropertyChanged(nameof(Makes));            }            
         }
         private void SelectMake(object Args)
         {
@@ -184,40 +183,40 @@ namespace AutomotiveBuilder.ViewModels
             {
                 SelectedModel = null;
             }
-            RaisePropertyChanged(nameof(SelectedMake));
-            RaisePropertyChanged(nameof(SelectedModel));
+            OnPropertyChanged(nameof(SelectedMake));
+            OnPropertyChanged(nameof(SelectedModel));
         }
         private void SelectModel(object Args)
         {            
-            RaisePropertyChanged(nameof(SelectedModel));
+            OnPropertyChanged(nameof(SelectedModel));
         }
         private void SortMakesName(object Args)
         {
 
             Makes.Sort();
-            RaisePropertyChanged(nameof(Makes));
+            OnPropertyChanged(nameof(Makes));
         }
         private void SortMakesCountry(object Args)
         {
             MakeCountryComparer makeCountryComparer = new MakeCountryComparer();    
 
             Makes.SortMake(makeCountryComparer);
-            RaisePropertyChanged(nameof(Makes));
+            OnPropertyChanged(nameof(Makes));
         }
         private void AddModel(object Args)
         {
             SelectedModel = new Model();
             SelectedModel.Name = "New Model";
             SelectedMake.Models.Add(SelectedModel);
-            RaisePropertyChanged(nameof(Makes));
+            OnPropertyChanged(nameof(Makes));
         }
         private void AddEngine(object Args)
         {
             SelectedEngine = new Engine();
             SelectedEngine.Name = "New Engine" + " " + SelectedMake.Engines.Count.ToString();
             SelectedMake.Engines.Add(SelectedEngine);
-            RaisePropertyChanged(nameof(Engines));
-            RaisePropertyChanged(nameof(SelectedEngine));
+            OnPropertyChanged(nameof(Engines));
+            OnPropertyChanged(nameof(SelectedEngine));
         }
         private void BrowseModelURL(object Args)
         {
@@ -262,7 +261,7 @@ namespace AutomotiveBuilder.ViewModels
                     return;
                 }
                 makes = new MakesList();
-                RaisePropertyChanged(nameof(Makes));
+                OnPropertyChanged(nameof(Makes));
                 FileDialog OpenFileDialog = new OpenFileDialog();
                 OpenFileDialog.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
                 OpenFileDialog.FilterIndex = 1;
@@ -275,12 +274,12 @@ namespace AutomotiveBuilder.ViewModels
                 else
                 {
                     makes = StaticMethods.LoadMakes();
-                    RaisePropertyChanged(nameof(Makes));
+                    OnPropertyChanged(nameof(Makes));
                     SelectedMake = Makes[0];
                     return;
                 }
                 makes = StaticMethods.LoadMakesFile(FileName);
-                RaisePropertyChanged(nameof(Makes));
+                OnPropertyChanged(nameof(Makes));
             }
             catch
             {

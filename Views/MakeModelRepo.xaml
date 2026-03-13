@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomotiveBuilder.Views"
-        xmlns:command="clr-namespace:MVVMtools.Command;assembly=MVVMtools"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Make Model Repo" Height="900" Width="1600"
@@ -21,27 +20,9 @@
         </Grid.RowDefinitions>
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Height="25">
             <MenuItem Header="File" Width="56">
-                <MenuItem Name="Open" Header="Open">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding OpenMakesFileCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </MenuItem>
-                <MenuItem Name="Save" Header="Save">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveMakesCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </MenuItem>
-                <MenuItem Name="SaveAs" Header="SaveAs">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding SaveMakesAsCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </MenuItem>
+                <MenuItem Name="Open" Header="Open" Command="{Binding OpenMakesFileCommand}"/>
+                <MenuItem Name="Save" Header="Save" Command="{Binding SaveMakesCommand}"/>
+                <MenuItem Name="SaveAs" Header="SaveAs" Command="{Binding SaveMakesAsCommand}"/>
                 <MenuItem Name="CloseView" Header="Close">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -67,24 +48,14 @@
                         <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Make List">
                             <GridViewColumn DisplayMemberBinding="{Binding Name}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesNameCommand}" PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </GridViewColumnHeader>
+                                    <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name"
+                                                          Command="{Binding SortMakesNameCommand}"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding Country}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Content="Country" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesCountryCommand}" PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>                                        
-                                    </GridViewColumnHeader>
+                                    <GridViewColumnHeader Content="Country" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country"
+                                                          Command="{Binding SortMakesCountryCommand}"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding Phone}" Width="auto">
@@ -96,7 +67,7 @@
                     </ListView.View>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <command:EventToCommand Command="{Binding SelectMakeCommand}" PassEventArgsToCommand="True" />
+                                <i:InvokeCommandAction Command="{Binding SelectMakeCommand}" PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListView>
@@ -138,7 +109,7 @@
                         Width="139" HorizontalContentAlignment="Center" FontWeight="Bold">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding BrowseMakeURLCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding BrowseMakeURLCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
@@ -156,7 +127,7 @@
                         FontWeight="Bold">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <command:EventToCommand Command="{Binding AddModelCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding AddModelCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
@@ -176,24 +147,14 @@
                         <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Make List">
                             <GridViewColumn DisplayMemberBinding="{Binding Name}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name2">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesNameCommand}" PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </GridViewColumnHeader>
+                                    <GridViewColumnHeader Content="Name" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Name2"
+                                                          Command="{Binding SortMakesNameCommand}"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding Trim}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Content="Trim" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country2">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <command:EventToCommand Command="{Binding SortMakesCountryCommand}" PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </GridViewColumnHeader>
+                                    <GridViewColumnHeader Content="Trim" Padding="5,0,0,0" HorizontalContentAlignment="Left" MinWidth="150" Name="Country2"
+                                                          Command="{Binding SortMakesCountryCommand}"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding Year}">
@@ -206,7 +167,7 @@
                     </ListView.View>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <command:EventToCommand Command="{Binding SelectModelCommand}" PassEventArgsToCommand="True" />
+                            <i:InvokeCommandAction Command="{Binding SelectModelCommand}" PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListView>
@@ -233,7 +194,7 @@
                     Width="139" HorizontalContentAlignment="Center" FontWeight="Bold">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding BrowseModelURLCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding BrowseModelURLCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>

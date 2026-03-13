@@ -4,8 +4,8 @@ using AutomotiveBuilder.Static;
 using AutomotiveBuilder.Statics;
 using AutomotiveBuilder.Views;
 using AutomotiveBuilder.Views.PartUtils;
-using MVVMtools;
-using MVVMtools.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -20,7 +20,7 @@ using static AutomotiveBuilder.Static.MessengerService;
 
 namespace AutomotiveBuilder.ViewModels.DriveTrain
 {
-    class DriveTrainVM : ViewModelBase
+    public partial class DriveTrainVM : ObservableObject
     {
         #region Message Handlers
         private void OnNewMessage(string text, MessageType type)
@@ -42,7 +42,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
                     switch (text)
                     {
                         case "Part Catagories":
-                            RaisePropertyChanged(nameof(StaticMethods.PartCatagories));
+                            OnPropertyChanged(nameof(StaticMethods.PartCatagories));
                             break;
 
                             case "TCC Strategy Recalculated":
@@ -98,7 +98,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
                 if (_WheelDiameters != value)
                 {
                     _WheelDiameters = value;
-                    RaisePropertyChanged(nameof(WheelDiameters));
+                    OnPropertyChanged(nameof(WheelDiameters));
                 }
             }
         }
@@ -110,7 +110,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
                 if (_NoGears != value)
                 {
                     _NoGears = value;
-                    RaisePropertyChanged(nameof(NoGears));
+                    OnPropertyChanged(nameof(NoGears));
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
                 if (_DriveTrainData != value)
                 {
                     _DriveTrainData = value;
-                    RaisePropertyChanged(nameof(DriveTrainData));
+                    OnPropertyChanged(nameof(DriveTrainData));
                     UpdateChart();
                 }
             }
@@ -135,7 +135,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
                 if (_TCCplotModel != value)
                 {
                     _TCCplotModel = value;
-                    RaisePropertyChanged(nameof(TCCplotModel));
+                    OnPropertyChanged(nameof(TCCplotModel));
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace AutomotiveBuilder.ViewModels.DriveTrain
             _TCCplotModel.Series.Add(TCC_Lock);
             _TCCplotModel.Series.Add(TCC_Unlock);
             TCCplotModel.InvalidatePlot(true);
-            RaisePropertyChanged(nameof(TCCplotModel));
+            OnPropertyChanged(nameof(TCCplotModel));
         }
 
         #endregion

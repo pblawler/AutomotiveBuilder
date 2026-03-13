@@ -1,16 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "RdygRXHhXSg=",
+  "dgSpecHash": "XJ1cOqPTyWc=",
   "success": true,
   "projectFilePath": "D:\\repos\\AutomotiveBuilder\\AutomotiveBuilder.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\pblawler\\.nuget\\packages\\commonservicelocator\\2.0.7\\commonservicelocator.2.0.7.nupkg.sha512",
     "C:\\Users\\pblawler\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
-    "C:\\Users\\pblawler\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.135\\microsoft.xaml.behaviors.wpf.1.1.135.nupkg.sha512",
+    "C:\\Users\\pblawler\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.142\\microsoft.xaml.behaviors.wpf.1.1.142.nupkg.sha512",
     "C:\\Users\\pblawler\\.nuget\\packages\\oxyplot.core\\2.2.0\\oxyplot.core.2.2.0.nupkg.sha512",
     "C:\\Users\\pblawler\\.nuget\\packages\\oxyplot.wpf\\2.2.0\\oxyplot.wpf.2.2.0.nupkg.sha512",
-    "C:\\Users\\pblawler\\.nuget\\packages\\oxyplot.wpf.shared\\2.2.0\\oxyplot.wpf.shared.2.2.0.nupkg.sha512",
-    "C:\\Users\\pblawler\\.nuget\\packages\\mvvmtools\\1.0.0\\mvvmtools.1.0.0.nupkg.sha512"
+    "C:\\Users\\pblawler\\.nuget\\packages\\oxyplot.wpf.shared\\2.2.0\\oxyplot.wpf.shared.2.2.0.nupkg.sha512"
   ],
   "logs": []
 }
