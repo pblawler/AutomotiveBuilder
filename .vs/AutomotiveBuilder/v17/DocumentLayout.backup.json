@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\repos\\AutomotiveBuilder\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|d:\\repos\\automotivebuilder\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|d:\\repos\\automotivebuilder\\usercntrls\\safeties\\fuelpressdeltauc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|solutionrelative:usercntrls\\safeties\\fuelpressdeltauc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|d:\\repos\\automotivebuilder\\usercntrls\\safeties\\fuelpressdeltauc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|solutionrelative:usercntrls\\safeties\\fuelpressdeltauc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|d:\\repos\\automotivebuilder\\dal\\safeties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DA5676-58FC-479B-BB3E-6648D15A798F}|AutomotiveBuilder.csproj|solutionrelative:dal\\safeties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +26,61 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\repos\\AutomotiveBuilder\\Views\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
+              "ToolTip": "D:\\repos\\AutomotiveBuilder\\Views\\MainWindow.xaml",
+              "RelativeToolTip": "Views\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-13T17:39:28.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FuelPressDeltaUC.xaml.cs",
+              "DocumentMoniker": "D:\\repos\\AutomotiveBuilder\\UserCntrls\\Safeties\\FuelPressDeltaUC.xaml.cs",
+              "RelativeDocumentMoniker": "UserCntrls\\Safeties\\FuelPressDeltaUC.xaml.cs",
+              "ToolTip": "D:\\repos\\AutomotiveBuilder\\UserCntrls\\Safeties\\FuelPressDeltaUC.xaml.cs",
+              "RelativeToolTip": "UserCntrls\\Safeties\\FuelPressDeltaUC.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T17:38:53.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FuelPressDeltaUC.xaml",
+              "DocumentMoniker": "D:\\repos\\AutomotiveBuilder\\UserCntrls\\Safeties\\FuelPressDeltaUC.xaml",
+              "RelativeDocumentMoniker": "UserCntrls\\Safeties\\FuelPressDeltaUC.xaml",
+              "ToolTip": "D:\\repos\\AutomotiveBuilder\\UserCntrls\\Safeties\\FuelPressDeltaUC.xaml",
+              "RelativeToolTip": "UserCntrls\\Safeties\\FuelPressDeltaUC.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-13T17:37:35.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Safeties.cs",
+              "DocumentMoniker": "D:\\repos\\AutomotiveBuilder\\DAL\\Safeties.cs",
+              "RelativeDocumentMoniker": "DAL\\Safeties.cs",
+              "ToolTip": "D:\\repos\\AutomotiveBuilder\\DAL\\Safeties.cs",
+              "RelativeToolTip": "DAL\\Safeties.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAkwPgAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T16:34:50.057Z",
+              "EditorCaption": ""
             }
           ]
         },

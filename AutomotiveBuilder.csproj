@@ -29,6 +29,9 @@
     <Compile Update="UserCntrls\DriveTrain\DriveTrainUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserCntrls\Safeties\FuelPressDeltaUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HPandETcalculatorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
